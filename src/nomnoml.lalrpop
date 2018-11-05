@@ -3,7 +3,15 @@ use tokens::*;
 
 grammar;
 
-pub AnyAssociation = { Simple, Linked, BiLinked Generalisation, RevGeneralisation, Composition, LinkComposition, Aggregation, LinkAggregation, Note, HiddenLink };
+/// Association non-terminal
+pub AnyAssociation = { Simple, Linked, BiLinked,
+                       Generalisation, RevGeneralisation,
+                       Composition, LinkComposition,
+                       Aggregation, LinkAggregation,
+                       Note, HiddenLink
+};
+
+/// Classifier non-terminal
 pub AnyClassifier = { None, Abstract, Instance,
                       Reference, Note, Package,
                       Frame, Database, Start,
@@ -13,7 +21,7 @@ pub AnyClassifier = { None, Abstract, Instance,
                       HiddenItem
 };
 
-Num: i32 = <s:r"[0-9]+"> => i32::from_str(s).unwrap();
+um: i32 = <s:r"[0-9]+"> => i32::from_str(s).unwrap();
 
 Simple: Association = r"" => Association::Simple;
 Linked: Association = r"" => Association::Linked;
