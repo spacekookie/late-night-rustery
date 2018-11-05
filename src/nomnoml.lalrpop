@@ -3,6 +3,11 @@ use tokens::*;
 
 grammar;
 
+/// A section consists of two classifiers, linked by an association
+/// OR a classifier linked with a section
+pub Section = { <AnyClassifier> <AnyAssociation> <AnyClassifier>,
+                <AnyClassifier> <AnyAssociation> <Section> }
+
 /// Association non-terminal
 pub AnyAssociation = { Simple, Linked, BiLinked,
                        Generalisation, RevGeneralisation,
@@ -13,7 +18,7 @@ pub AnyAssociation = { Simple, Linked, BiLinked,
 
 /// Classifier non-terminal
 pub AnyClassifier = { None, Abstract, Instance,
-                      Reference, Note, Package,
+                      Reference, CNote, Package,
                       Frame, Database, Start,
                       End, State, Choice, Input,
                       Sender, Receiver, Transceiver,
@@ -21,42 +26,40 @@ pub AnyClassifier = { None, Abstract, Instance,
                       HiddenItem
 };
 
-um: i32 = <s:r"[0-9]+"> => i32::from_str(s).unwrap();
-
-Simple: Association = r"" => Association::Simple;
-Linked: Association = r"" => Association::Linked;
-BiLinked: Association = r"" => Association::BiLinked;
-Dependency: Association = r"" => Association::Dependency;
-BiDependency: Association = r"" => Association::BiDependency;
-Generalisation: Association = r"" => Association::Generalisation;
-RevGeneralisation: Association = r"" => Association::RevGeneralisation;
-Implementation: Association = r"" => Association::Implementation;
-RevImplementation: Association = r"" => Association::RevImplementation;
-Composition: Association = r"" => Association::Composition;
-LinkComposition: Association = r"" => Association::LinkComposition;
-Aggregation: Association = r"" => Association::Aggregation;
-LinkAggregation: Association = r"" => Association::LinkAggregation;
-Note: Association = r"" => Association::Note;
-HiddenLink: Association = r"" => Association::Hidden;
+Simple: Association = r"-" => Association::Simple;
+Linked: Association = r"->" => Association::Linked;
+BiLinked: Association = r"<->" => Association::BiLinked;
+Dependency: Association = r"-->" => Association::Dependency;
+BiDependency: Association = r"<-->" => Association::BiDependency;
+Generalisation: Association = r"-:>" => Association::Generalisation;
+RevGeneralisation: Association = r"<:-" => Association::RevGeneralisation;
+Implementation: Association = r"--:>" => Association::Implementation;
+RevImplementation: Association = r"<:--" => Association::RevImplementation;
+Composition: Association = r"\+-" => Association::Composition;
+LinkComposition: Association = r"\+->" => Association::LinkComposition;
+Aggregation: Association = r"o-" => Association::Aggregation;
+LinkAggregation: Association = r"o->" => Association::LinkAggregation;
+Note: Association = r"--" => Association::Note;
+HiddenLink: Association = r"-/-" => Association::Hidden;
 
 
-None: Classifiers = r"" => Classifiers::None;
-Abstract: Classifiers = r"" => Classifiers::Abstract;
-Instance: Classifiers = r"" => Classifiers::Instance;
-Reference: Classifiers = r"" => Classifiers::Reference;
-Note: Classifiers = r"" => Classifiers::Note;
-Package: Classifiers = r"" => Classifiers::Package;
-Frame: Classifiers = r"" => Classifiers::Frame;
-Database: Classifiers = r"" => Classifiers::Database;
-Start: Classifiers = r"" => Classifiers::Start;
-End: Classifiers = r"" => Classifiers::End;
-State: Classifiers = r"" => Classifiers::State;
-Choice: Classifiers = r"" => Classifiers::Choice;
-Input: Classifiers = r"" => Classifiers::Input;
-Sender: Classifiers = r"" => Classifiers::Sender;
-Receiver: Classifiers = r"" => Classifiers::Receiver;
-Transceiver: Classifiers = r"" => Classifiers::Transceiver;
-Actor: Classifiers = r"" => Classifiers::Actor;
-Usecase: Classifiers = r"" => Classifiers::Usecase;
-Label: Classifiers = r"" => Classifiers::Label;
-HiddenItem: Classifiers = r"" => Classifiers::HiddenItem;
+None: Classifiers = r"\[[a-zA-Z0-9]*\]" => Classifiers::None;
+Abstract: Classifiers = r"\[<abstract> [a-zA-Z0-9]*\]" => Classifiers::Abstract;
+Instance: Classifiers = r"\[<instance> [a-zA-Z0-9]*\]" => Classifiers::Instance;
+Reference: Classifiers = r"\[<reference> [a-zA-Z0-9]*\]" => Classifiers::Reference;
+CNote: Classifiers = r"\[<note> [a-zA-Z0-9]*\]" => Classifiers::Note;
+Package: Classifiers = r"\[<package> [a-zA-Z0-9]*\]" => Classifiers::Package;
+Frame: Classifiers = r"\[<frame> [a-zA-Z0-9]*\]" => Classifiers::Frame;
+Database: Classifiers = r"\[<database> [a-zA-Z0-9]*\]" => Classifiers::Database;
+Start: Classifiers = r"\[<start> [a-zA-Z0-9]*\]" => Classifiers::Start;
+End: Classifiers = r"\[<end> [a-zA-Z0-9]*\]" => Classifiers::End;
+State: Classifiers = r"\[<state> [a-zA-Z0-9]*\]" => Classifiers::State;
+Choice: Classifiers = r"\[<choice> [a-zA-Z0-9]*\]" => Classifiers::Choice;
+Input: Classifiers = r"\[<input> [a-zA-Z0-9]*\]" => Classifiers::Input;
+Sender: Classifiers = r"\[<sender> [a-zA-Z0-9]*\]" => Classifiers::Sender;
+Receiver: Classifiers = r"\[<receiver> [a-zA-Z0-9]*\]" => Classifiers::Receiver;
+Transceiver: Classifiers = r"\[<transceiver> [a-zA-Z0-9]*\]" => Classifiers::Transceiver;
+Actor: Classifiers = r"\[<actor> [a-zA-Z0-9]*\]" => Classifiers::Actor;
+Usecase: Classifiers = r"\[<usecase> [a-zA-Z0-9]*\]" => Classifiers::Usecase;
+Label: Classifiers = r"\[<label> [a-zA-Z0-9]*\]" => Classifiers::Label;
+HiddenItem: Classifiers = r"\[<hiddenitem> [a-zA-Z0-9]*\]" => Classifiers::HiddenItem;
