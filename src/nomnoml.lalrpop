@@ -1,0 +1,54 @@
+use std::str::FromStr;
+use tokens::*;
+
+grammar;
+
+pub AnyAssociation = { Simple, Linked, BiLinked Generalisation, RevGeneralisation, Composition, LinkComposition, Aggregation, LinkAggregation, Note, HiddenLink };
+pub AnyClassifier = { None, Abstract, Instance,
+                      Reference, Note, Package,
+                      Frame, Database, Start,
+                      End, State, Choice, Input,
+                      Sender, Receiver, Transceiver,
+                      Actor, Usecase, Label,
+                      HiddenItem
+};
+
+Num: i32 = <s:r"[0-9]+"> => i32::from_str(s).unwrap();
+
+Simple: Association = r"" => Association::Simple;
+Linked: Association = r"" => Association::Linked;
+BiLinked: Association = r"" => Association::BiLinked;
+Dependency: Association = r"" => Association::Dependency;
+BiDependency: Association = r"" => Association::BiDependency;
+Generalisation: Association = r"" => Association::Generalisation;
+RevGeneralisation: Association = r"" => Association::RevGeneralisation;
+Implementation: Association = r"" => Association::Implementation;
+RevImplementation: Association = r"" => Association::RevImplementation;
+Composition: Association = r"" => Association::Composition;
+LinkComposition: Association = r"" => Association::LinkComposition;
+Aggregation: Association = r"" => Association::Aggregation;
+LinkAggregation: Association = r"" => Association::LinkAggregation;
+Note: Association = r"" => Association::Note;
+HiddenLink: Association = r"" => Association::Hidden;
+
+
+None: Classifiers = r"" => Classifiers::None;
+Abstract: Classifiers = r"" => Classifiers::Abstract;
+Instance: Classifiers = r"" => Classifiers::Instance;
+Reference: Classifiers = r"" => Classifiers::Reference;
+Note: Classifiers = r"" => Classifiers::Note;
+Package: Classifiers = r"" => Classifiers::Package;
+Frame: Classifiers = r"" => Classifiers::Frame;
+Database: Classifiers = r"" => Classifiers::Database;
+Start: Classifiers = r"" => Classifiers::Start;
+End: Classifiers = r"" => Classifiers::End;
+State: Classifiers = r"" => Classifiers::State;
+Choice: Classifiers = r"" => Classifiers::Choice;
+Input: Classifiers = r"" => Classifiers::Input;
+Sender: Classifiers = r"" => Classifiers::Sender;
+Receiver: Classifiers = r"" => Classifiers::Receiver;
+Transceiver: Classifiers = r"" => Classifiers::Transceiver;
+Actor: Classifiers = r"" => Classifiers::Actor;
+Usecase: Classifiers = r"" => Classifiers::Usecase;
+Label: Classifiers = r"" => Classifiers::Label;
+HiddenItem: Classifiers = r"" => Classifiers::HiddenItem;

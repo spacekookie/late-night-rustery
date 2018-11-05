@@ -1,0 +1,12 @@
+[package]
+name = "nomnoml"
+version = "0.1.0"
+authors = ["Katharina Fey <kookie@spacekookie.de>"]
+edition = "2018"
+
+[build-dependencies] 
+lalrpop = "0.16.1"
+
+[dependencies]
+lalrpop-util = "0.16.1"
+regex = "0.2.1"
