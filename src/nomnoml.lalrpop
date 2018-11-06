@@ -3,17 +3,18 @@ use crate::tokens::*;
 
 grammar;
 
+// pub Section = { <Section>, "[" Section Section "]" }
+
 /// A section consists of two classifiers, linked by an association
-/// OR a classifier linked with a section
-pub Section = { <AnyClassifier> <AnyAssociation> <AnyClassifier>,
-                <AnyClassifier> <AnyAssociation> <Section> }
+pub SubSection = { <AnyClassifier> <AnyAssociation> <AnyClassifier> }
+                // /*<AnyClassifier> <AnyAssociation> <Section> */
 
 /// Association non-terminal
 pub AnyAssociation = { Simple, Linked, BiLinked,
                        Generalisation, RevGeneralisation,
                        Composition, LinkComposition,
                        Aggregation, LinkAggregation,
-                       Note, HiddenLink
+                       LinkNote, HiddenLink
 };
 
 /// Classifier non-terminal
@@ -39,7 +40,7 @@ Composition: Association = r"\+-" => Association::Composition;
 LinkComposition: Association = r"\+->" => Association::LinkComposition;
 Aggregation: Association = r"o-" => Association::Aggregation;
 LinkAggregation: Association = r"o->" => Association::LinkAggregation;
-Note: Association = r"--" => Association::Note;
+LinkNote: Association = r"--" => Association::Note;
 HiddenLink: Association = r"-/-" => Association::Hidden;
 
 
