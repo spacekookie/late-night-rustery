@@ -1,5 +1,5 @@
 use std::str::FromStr;
-use tokens::*;
+use crate::tokens::*;
 
 grammar;
 
@@ -62,4 +62,4 @@ Transceiver: Classifiers = r"\[<transceiver> [a-zA-Z0-9]*\]" => Classifiers::Tra
 Actor: Classifiers = r"\[<actor> [a-zA-Z0-9]*\]" => Classifiers::Actor;
 Usecase: Classifiers = r"\[<usecase> [a-zA-Z0-9]*\]" => Classifiers::Usecase;
 Label: Classifiers = r"\[<label> [a-zA-Z0-9]*\]" => Classifiers::Label;
-HiddenItem: Classifiers = r"\[<hiddenitem> [a-zA-Z0-9]*\]" => Classifiers::HiddenItem;
+HiddenItem: Classifiers = r"\[<hidden> [a-zA-Z0-9]*\]" => Classifiers::Hidden;
